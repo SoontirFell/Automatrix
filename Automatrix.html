@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport"  />
+        
+        <title>Automatrix</title>
+        <link href="Automatrix.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="container">
+            <div id="header">
+                <h1>Automatrix</h1>
+                <h4>How much time can you save?</h4>
+            </div>
+            
+            <div id="gridContainer">
+                <form id="calcForm" name="calcForm">
+                    <table id="calcFormTable">
+                        <tr>
+                            <th>
+                                Time Saved
+                            </th>
+                            <th></th>
+                            <th>
+                                Time Saved per Task
+                            </th>
+                            <th>
+
+                            </th>
+                            <th>
+                                Number of Repetitions
+                            </th>
+                            <th></th>
+                            <th>
+                                Setup Time
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="timeSaved" type="text" name="timeSaved" value="" disabled>
+                            </td>
+                            <td>
+                                = (
+                            </td>
+                            <td>
+                                <input id="timeSavedPer" type="number" name="savedPerTime">
+                            </td>
+                            <td>
+                                *
+                            </td>
+                            <td>
+                                <input id="taskReps" type="number" name="taskReps">
+                            </td>
+                            <td>
+                                ) - 
+                            </td>
+                            <td>
+                                <input id="setupTime" type="number" name="setupTime">
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr class="padBottom">
+                            <td>
+                                <input id="timeSavedMargin" class="smallInput" maxlength="4" type="number" name="timeSavedMargin" value="" disabled min="0"> % |
+                                <select id="timeSavedUnits" name="timeSavedUnits">
+                                    <option>Seconds</option>
+                                    <option selected="selected">Minutes</option>
+                                    <option>Hours</option>
+                                    <option>Days</option>
+                                    <option>Weeks</option>
+                                    <option>Years</option>
+                                </select>
+                            </td>
+                            <td></td>
+                            <td>
+                                <input id="timeSavedPerMargin" class="smallInput" maxlength="4" type="number" name="savedPerTimeMargin" min="0"> % |
+                                <select id="timeSavedPerUnits" name="timeSavedPerUnits">
+                                    <option>Seconds</option>
+                                    <option selected="selected">Minutes</option>
+                                    <option>Hours</option>
+                                    <option>Days</option>
+                                    <option>Weeks</option>
+                                    <option>Years</option>
+                                </select>
+                            </td>
+                            <td></td>
+                            <td>
+                                <input id="taskRepsMargin" class="smallInput" maxlength="4"  type="number" name="repetitionMargin"> %
+                            </td>
+                            <td></td>
+                            <td>
+                                <input id="setupTimeMargin" class="smallInput" maxlength="4" type="number" name="setupTimeMargin" min="0"> % |
+                                <select id="setupTimeUnits" name="setupTimeUnits">
+                                    <option>Seconds</option>
+                                    <option selected="selected">Minutes</option>
+                                    <option>Hours</option>
+                                    <option>Days</option>
+                                    <option>Weeks</option>
+                                    <option>Years</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Break Even on Task
+                            </th>
+                        </tr>
+                        <tr class="padBottom">
+                            <td>
+                                <input id="breakEvenReps" type="text" name="breakEvenReps" disabled>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Calculate Reps
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Calculate TSpT</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                Task Frequency
+                            </td>
+                            <td></td>
+                            <td>
+                                Task Duration
+                            </td>
+                            <td></td>
+                            <td>
+                                Task Time w/ Auto
+                            </td>
+                            <td></td>
+                            <td>
+                                Task Time w/o Auto
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="taskFrequency" type="number" name="taskFrequency">
+                            </td>
+                            <td> 
+                                * 
+                            </td>
+                            <td>
+                                <input id="taskDuration" type="number" name="taskDuration">
+                            </td>
+                            <td></td>
+                            <td>
+                                <input id="timeWAutomation" type="number" name="timeWOAutomation">
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                <input id="timeWOAutomation" type="number" name="timeWAutomation">
+                            </td>
+                        </tr>
+                        <tr class="smallInput" maxlength="4">
+                            <td>
+                                <input id="taskFrequencyMargin" class="smallInput" maxlength="4" type="number" name="setupTimeMargin" min="0"> % |
+                                per <select id="taskFrequencyUnits" name="taskFrequencyUnits">
+                                    <option>Second</option>
+                                    <option selected="selected">Minute</option>
+                                    <option>Hour</option>
+                                    <option>Day</option>
+                                    <option>Week</option>
+                                    <option>Year</option>
+                                </select>
+                            </td>
+                            <td></td>
+                            <td>
+                                <input id="taskDurationMargin" class="smallInput" maxlength="4" type="number" name="setupTimeMargin" min="0"> % |
+                                <select id="taskDurationUnits" name="taskDurationUnits">
+                                    <option>Seconds</option>
+                                    <option selected="selected">Minutes</option>
+                                    <option>Hours</option>
+                                    <option>Days</option>
+                                    <option>Weeks</option>
+                                    <option>Years</option>
+                                </select>
+                            </td>
+                            <td></td>
+                            <td>
+                                <select id="timeWOAutomationUnits" name="timeWAutomationUnits">
+                                    <option>Seconds</option>
+                                    <option selected="selected">Minutes</option>
+                                    <option>Hours</option>
+                                    <option>Days</option>
+                                    <option>Weeks</option>
+                                    <option>Years</option>
+                                </select>
+                            </td>
+                            <td> </td>
+                            <td>
+                                <select id="timeWAutomationUnits" name="timeWOAutomationUnits">
+                                    <option>Seconds</option>
+                                    <option selected="selected">Minutes</option>
+                                    <option>Hours</option>
+                                    <option>Days</option>
+                                    <option>Weeks</option>
+                                    <option>Years</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            
+            <br>
+            
+            <div id="credit">
+                <p>
+                    Inspired by <a href="https://xkcd.com/1205/">XKCD 1205</a>. Just like the comic this is a tool intended to help you decide if automation is worth while.
+                </p>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="Automatrix.js" ></script>
+    </body>
+</html>

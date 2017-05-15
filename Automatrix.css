@@ -1,0 +1,14 @@
+
+
+.input {
+    width:200px
+}
+
+.smallInput {
+    width:30px;
+}
+
+.padBottom > td {
+    padding-bottom: 20px;
+    text-align: center
+}

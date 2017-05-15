@@ -1,0 +1,22 @@
+To Do:
+    Calculate Reps and Calcluate TSpT
+        Finish adjustments for margin of 0
+        Setup TSpT calc
+    Style
+        Hide by default
+        Make headers clickable
+        Open relevant calculator in modal when header clicked
+        Update main form when modal closed
+
+Contextual Fields:
+Time w/o Automation
+Time w/ Automation
+Estimate Margin of Error on time w/ Automation
+Time saved by Automation
+    Absolute and % diff
+Frequency task is executed
+Duration of task execution
+# of task repetitions
+# of repetitions to break even
+time to break even
+surplus time from automation

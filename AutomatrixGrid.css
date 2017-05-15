@@ -1,0 +1,29 @@
+.gridContainer {
+    display:grid;
+    
+}
+
+.gridCalc {
+    display:grid | inline-grid;
+    grid-template-columns: auto;
+}
+
+
+
+.gridBreakEven {
+    display:grid | inline-grid;
+    
+}
+
+.gridSubCalcs {
+    display:grid | inline-grid;
+    
+}
+
+.input {
+    width:200px
+}
+
+.inputShort {
+    width:75px
+}
