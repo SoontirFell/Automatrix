@@ -122,15 +122,14 @@ function calcTimeSaved() {
         timeSavedConverted = convertSeconds(timeSavedSeconds, timeSavedUnits, false);
     }
     
-    /*
-    if (parseInt(timeSavedPerMargin, 10) === 0) {
+    if (parseInt(timeSavedPerMargin, 10) === 0 && parseInt(taskRepsMargin, 10) !== 0) {
         timeSavedPerMargin = 1;
     }
     
-    if (parseInt(taskRepsMargin, 10) === 0) {
+    if (parseInt(taskRepsMargin, 10) === 0 && parseInt(timeSavedPerMargin, 10) !== 0) {
         taskRepsMargin = 1;
     }
-    */
+    
     
     timeSavedMargin = (timeSavedPerMargin * taskRepsMargin) + setupTimeMargin;
     
@@ -183,22 +182,27 @@ function calcTaskReps() {
         taskDurationConverted = convertSeconds(taskDurationRaw, taskDurationUnits, true);
         taskReps = taskFrequencyConverted * taskDurationConverted;
         document.getElementById('taskReps').value = taskReps;
+    } else {
+        document.getElementById('taskReps').value = null;
     }
     
     taskFrequencyMargin = document.getElementById('taskFrequencyMargin').value;
     taskDurationMargin = document.getElementById('taskDurationMargin').value;
     
     if (!!taskFrequencyMargin && !!taskDurationMargin) {
-        /*
-        if (parseInt(taskFrequencyMargin, 10) === 0) {
+        
+        if (parseInt(taskFrequencyMargin, 10) === 0 && parseInt(taskDurationMargin, 10) !== 0) {
             taskFrequencyMargin = 1;
         }
-        if (parseInt(taskDurationMargin, 10) === 0) {
+        
+        if (parseInt(taskDurationMargin, 10) === 0 && parseInt(taskFrequencyMargin, 10) !== 0) {
             taskDurationMargin = 1;
         }
-        */
+        
         taskRepsMargin = taskFrequencyMargin * taskDurationMargin;
         document.getElementById('taskRepsMargin').value = taskRepsMargin;
+    } else {
+        document.getElementById('taskRepsMargin').value = null;
     }
     
     calcTimeSaved();
