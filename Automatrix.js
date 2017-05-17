@@ -52,6 +52,14 @@ function convertSeconds(value, units, toSeconds) {
     
 }
 
+function zeroMarginMultiple(zeroMargin, pairedMargin) {
+    'use strict';
+    if (parseInt(zeroMargin, 10) === 0 && parseInt(pairedMargin, 10) !== 0) {
+        zeroMargin = 1;
+    }
+    return zeroMargin;
+}
+
 function calcBreakEven(timeSavedPerSeconds, timeSavedPerMagin, taskReps, setupTimeSeconds, setupTimeMargin) {
     'use strict';
     var breakEvenRepsAvg,
@@ -98,7 +106,6 @@ function calcTimeSaved() {
         timeSavedPerSeconds = convertSeconds(timeSavedPerRaw, timeSavedPerUnits, true);
     }
     
-    
     taskReps = parseInt(document.getElementById('taskReps').value, 10);
     taskRepsMargin = parseInt(document.getElementById('taskRepsMargin').value, 10);
     
@@ -122,14 +129,9 @@ function calcTimeSaved() {
         timeSavedConverted = convertSeconds(timeSavedSeconds, timeSavedUnits, false);
     }
     
-    if (parseInt(timeSavedPerMargin, 10) === 0 && parseInt(taskRepsMargin, 10) !== 0) {
-        timeSavedPerMargin = 1;
-    }
+    timeSavedPerMargin = zeroMarginMultiple(timeSavedPerMargin, taskRepsMargin);
     
-    if (parseInt(taskRepsMargin, 10) === 0 && parseInt(timeSavedPerMargin, 10) !== 0) {
-        taskRepsMargin = 1;
-    }
-    
+    taskRepsMargin = zeroMarginMultiple(taskRepsMargin, timeSavedPerMargin);
     
     timeSavedMargin = (timeSavedPerMargin * taskRepsMargin) + setupTimeMargin;
     
@@ -191,13 +193,9 @@ function calcTaskReps() {
     
     if (!!taskFrequencyMargin && !!taskDurationMargin) {
         
-        if (parseInt(taskFrequencyMargin, 10) === 0 && parseInt(taskDurationMargin, 10) !== 0) {
-            taskFrequencyMargin = 1;
-        }
+        taskFrequencyMargin = zeroMarginMultiple(taskFrequencyMargin, taskDurationMargin);
         
-        if (parseInt(taskDurationMargin, 10) === 0 && parseInt(taskFrequencyMargin, 10) !== 0) {
-            taskDurationMargin = 1;
-        }
+        taskDurationMargin = zeroMarginMultiple(taskDurationMargin, taskFrequencyMargin);
         
         taskRepsMargin = taskFrequencyMargin * taskDurationMargin;
         document.getElementById('taskRepsMargin').value = taskRepsMargin;
@@ -210,6 +208,54 @@ function calcTaskReps() {
 
 function calcTimeSavedPer() {
     'use strict';
+    var timeSavedPer,
+        timeSavedPerConverted,
+        timeSavedPerMargin,
+        timeSavedPerUnits,
+        timeWOAutomationRaw,
+        timeWOAutomationSeconds,
+        timeWOAutomationMargin,
+        timeWOAutomationUnits,
+        timeWAutomationRaw,
+        timeWAutomationSeconds,
+        timeWAutomationMargin,
+        timeWAutomationUnits;
+    
+    timeWOAutomationRaw = document.getElementById('timeWOAutomation').value;
+    timeWOAutomationUnits = document.getElementById('timeWOAutomationUnits').value;
+    timeWAutomationRaw = document.getElementById('timeWAutomation').value;
+    timeWAutomationUnits = document.getElementById('timeWAutomationUnits').value;
+    timeSavedPerUnits = document.getElementById('timeSavedPerUnits').value;
+    
+    if (!!timeWOAutomationRaw && !!timeWAutomationRaw) {
+        timeWOAutomationSeconds = convertSeconds(timeWOAutomationRaw, timeWOAutomationUnits, true);
+        
+        timeWAutomationSeconds = convertSeconds(timeWAutomationRaw, timeWAutomationUnits, true);
+        
+        timeSavedPer = parseInt(timeWOAutomationSeconds, 10) - parseInt(timeWAutomationSeconds, 10);
+        
+        timeSavedPerConverted = convertSeconds(timeSavedPer, timeSavedPerUnits, false);
+            
+        document.getElementById('timeSavedPer').value = timeSavedPerConverted;
+    } else {
+        document.getElementById('timeSavedPer').value = null;
+    }
+    
+    timeWOAutomationMargin = document.getElementById('timeWOAutomationMargin').value;
+    timeWAutomationMargin = document.getElementById('timeWAutomationMargin').value;
+    
+    if (!!timeWOAutomationMargin && !!timeWAutomationMargin) {
+        console.log('test');
+        timeWOAutomationMargin = zeroMarginMultiple(timeWOAutomationMargin, timeWAutomationMargin);
+        
+        timeWAutomationMargin = zeroMarginMultiple(timeWAutomationMargin, timeWOAutomationMargin);
+        
+        timeSavedPerMargin = parseInt(timeWOAutomationMargin, 10) + parseInt(timeWAutomationMargin, 10);
+        
+        document.getElementById('timeSavedPerMargin').value = timeSavedPerMargin;
+    } else {
+        document.getElementById('timeSavedPerMargin').value = null;
+    }
     
     calcTimeSaved();
 }
@@ -221,6 +267,8 @@ function updateForm(event) {
 
     case 'timeWAutomation':
     case 'timeWOAutomation':
+    case 'timeWAutomationMargin':
+    case 'timeWOAutomationMargin':
         calcTimeSavedPer();
         break;
         
@@ -243,5 +291,5 @@ document.getElementById('timeSavedPerUnits').onchange = updateForm;
 document.getElementById('setupTimeUnits').onchange = updateForm;
 document.getElementById('taskFrequencyUnits').onchange = calcTaskReps;
 document.getElementById('taskDurationUnits').onchange = calcTaskReps;
-document.getElementById('timeWAutomationUnits').onchange = updateForm;
-document.getElementById('timeWOAutomationUnits').onchange = updateForm;
+document.getElementById('timeWAutomationUnits').onchange = calcTimeSavedPer;
+document.getElementById('timeWOAutomationUnits').onchange = calcTimeSavedPer;
