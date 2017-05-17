@@ -1,12 +1,10 @@
 To Do:
-    Calculate Reps and Calcluate TSpT
-        Atomize
-    
+    Change convertSeconds switch to Associative Array
+    Add Error Handling
+    Change if else to if when decided whether to convertSeconds
     Style
-        Hide by default
-        Make headers clickable
-        Open relevant calculator in modal when header clicked
-        Update main form when modal closed
+        Convert to Wizard
+        Add power user mode that shows all
 
 Contextual Fields:
 Time w/o Automation
