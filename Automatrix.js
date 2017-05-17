@@ -3,11 +3,23 @@
 
 function convertSeconds(value, units, toSeconds) {
     'use strict';
+    if (isNaN(value) = true) {
+        console.log('Invalid value for convertSeconds');
+        return;
+    }
+    
+    if (!units) {
+        console.log('Units undefined for convertSeconds');
+        return;
+    }
+    
+    if (!toSeconds ) {
+        console.log('toSeconds undefined for convertSeconds');
+        return;
+    }
     
     if (toSeconds === true) {
         switch (units) {
-        case 'Seconds':
-            break;
         case 'Minutes':
             value = value * 60;
             break;
@@ -28,8 +40,6 @@ function convertSeconds(value, units, toSeconds) {
     
     if (toSeconds === false) {
         switch (units) {
-        case 'Seconds':
-            break;
         case 'Minutes':
             value = value / 60;
             break;
