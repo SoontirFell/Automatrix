@@ -1,6 +1,7 @@
 /*globals browser, console, SC, YT */
 /*jslint plusplus: true */
 
+// Converts time values to and from Seconds. Can be used in the opposite direction if the value is per time, e.g. 1 task per hour
 function convertSeconds(value, units, toSeconds) {
     'use strict';
     if (isNaN(value) = true) {
@@ -62,6 +63,7 @@ function convertSeconds(value, units, toSeconds) {
     
 }
 
+// Ensures that a 0% margin of error does not result in a separate, non-zero margin of error being nullified.
 function zeroMarginMultiple(zeroMargin, pairedMargin) {
     'use strict';
     if (parseInt(zeroMargin, 10) === 0 && parseInt(pairedMargin, 10) !== 0) {
