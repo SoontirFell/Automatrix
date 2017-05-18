@@ -2,65 +2,30 @@
 /*jslint plusplus: true */
 
 // Converts time values to and from Seconds. Can be used in the opposite direction if the value is per time, e.g. 1 task per hour
-function convertSeconds(value, units, toSeconds) {
+function convertSeconds(value, units, bToSeconds) {
     'use strict';
-    if (isNaN(value) = true) {
-        console.log('Invalid value for convertSeconds');
-        return;
-    }
-    
-    if (!units) {
-        console.log('Units undefined for convertSeconds');
-        return;
-    }
-    
-    if (!toSeconds ) {
-        console.log('toSeconds undefined for convertSeconds');
-        return;
-    }
-    
-    if (toSeconds === true) {
-        switch (units) {
-        case 'Minutes':
-            value = value * 60;
-            break;
-        case 'Hours':
-            value = value * 3600;
-            break;
-        case 'Days':
-            value = value * 86400;
-            break;
-        case 'Weeks':
-            value = value * 604800;
-            break;
-        case 'Years':
-            value = value * 31536000;
-            break;
+    var conversionMap = {
+        'Seconds': 1,
+        'Minutes': 60,
+        'Hours': 3600,
+        'Days': 86400,
+        'Weeks': 604800,
+        'Years': 31536000
+    };
+    if (typeof value !== 'undefined' && typeof units !== 'undefined' && typeof bToSeconds !== 'undefined') {
+        if (!!conversionMap[units]) {
+            if (bToSeconds) {
+                return value * conversionMap[units];
+            }
+            if (!bToSeconds) {
+                return value / conversionMap[units];
+            }
+        } else {
+            console.log('ERROR: convertSeconds - invalid units');
         }
+    } else {
+        console.log('ERROR: convertSeconds - expects (value, units, bToSeconds)');
     }
-    
-    if (toSeconds === false) {
-        switch (units) {
-        case 'Minutes':
-            value = value / 60;
-            break;
-        case 'Hours':
-            value = value / 3600;
-            break;
-        case 'Days':
-            value = value / 86400;
-            break;
-        case 'Weeks':
-            value = value / 604800;
-            break;
-        case 'Years':
-            value = value / 31536000;
-            break;
-        }
-    }
-    
-    return value;
-    
 }
 
 // Ensures that a 0% margin of error does not result in a separate, non-zero margin of error being nullified.
@@ -125,20 +90,17 @@ function calcTimeSaved() {
     setupTimeMargin = parseInt(document.getElementById('setupTimeMargin').value, 10);
     setupTimeUnits = document.getElementById('setupTimeUnits').value;
     
-    if (setupTimeUnits === 'Seconds') {
-        setupTimeSeconds = setupTimeRaw;
-    } else {
-        setupTimeSeconds = convertSeconds(setupTimeRaw, setupTimeUnits, true);
+    setupTimeSeconds = setupTimeRaw;
+    if (setupTimeUnits !== 'Seconds') {
+        setupTimeSeconds = convertSeconds(setupTimeSeconds, setupTimeUnits, true);
     }
-    
     
     timeSavedUnits = document.getElementById('timeSavedUnits').value;
     timeSavedSeconds = (timeSavedPerSeconds * taskReps) - setupTimeSeconds;
     
-    if (timeSavedUnits === 'Seconds') {
-        timeSavedConverted = timeSavedSeconds;
-    } else {
-        timeSavedConverted = convertSeconds(timeSavedSeconds, timeSavedUnits, false);
+    timeSavedConverted = timeSavedSeconds;
+    if (timeSavedUnits !== 'Seconds') {
+        timeSavedConverted = convertSeconds(timeSavedConverted, timeSavedUnits, false);
     }
     
     timeSavedPerMargin = zeroMarginMultiple(timeSavedPerMargin, taskRepsMargin);
@@ -258,9 +220,6 @@ function calcTimeSavedPer() {
     
     if (!!timeWOAutomationMargin && !!timeWAutomationMargin) {
         console.log('test');
-        timeWOAutomationMargin = zeroMarginMultiple(timeWOAutomationMargin, timeWAutomationMargin);
-        
-        timeWAutomationMargin = zeroMarginMultiple(timeWAutomationMargin, timeWOAutomationMargin);
         
         timeSavedPerMargin = parseInt(timeWOAutomationMargin, 10) + parseInt(timeWAutomationMargin, 10);
         
@@ -298,10 +257,10 @@ function updateForm(event) {
 }
 
 document.addEventListener('keyup', updateForm);
-document.getElementById('timeSavedUnits').onchange = updateForm;
-document.getElementById('timeSavedPerUnits').onchange = updateForm;
-document.getElementById('setupTimeUnits').onchange = updateForm;
-document.getElementById('taskFrequencyUnits').onchange = calcTaskReps;
-document.getElementById('taskDurationUnits').onchange = calcTaskReps;
-document.getElementById('timeWAutomationUnits').onchange = calcTimeSavedPer;
-document.getElementById('timeWOAutomationUnits').onchange = calcTimeSavedPer;
+document.getElementById('timeSavedUnits').addEventListener('input', updateForm);
+document.getElementById('timeSavedPerUnits').addEventListener('input', updateForm);
+document.getElementById('setupTimeUnits').addEventListener('input', updateForm);
+document.getElementById('taskFrequencyUnits').addEventListener('input', calcTaskReps);
+document.getElementById('taskDurationUnits').addEventListener('input', calcTaskReps);
+document.getElementById('timeWAutomationUnits').addEventListener('input', calcTimeSavedPer);
+document.getElementById('timeWOAutomationUnits').addEventListener('input', calcTimeSavedPer);

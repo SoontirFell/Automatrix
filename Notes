@@ -1,7 +1,5 @@
 To Do:
-    Change convertSeconds switch to Associative Array
     Add Error Handling
-    Change if else to if when decided whether to convertSeconds
     Style
         Convert to Wizard
         Add power user mode that shows all
