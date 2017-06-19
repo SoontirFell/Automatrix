@@ -231,6 +231,45 @@ function calcTimeSavedPer() {
     calcTimeSaved();
 }
 
+function updateEq() {
+    'use strict';
+    var st,
+        r,
+        ts,
+        tspt;
+    
+    tspt = document.getElementById('timeSavedPer').value;
+    r = document.getElementById('taskReps').value;
+    st = document.getElementById('setupTime').value;
+    ts = document.getElementById('timeSaved').value;
+    
+    console.log(r !== '');
+    
+    if (tspt !== '') {
+        document.getElementById('tspt').innerHTML = tspt;
+    } else {
+        document.getElementById('tspt').innerHTML = 'TSpT';
+    }
+    
+    if (r !== '') {
+        document.getElementById('r').innerHTML = r;
+    } else {
+        document.getElementById('r').innerHTML = 'R';
+    }
+    
+    if (st !== '') {
+        document.getElementById('st').innerHTML = st;
+    } else {
+        document.getElementById('st').innerHTML = 'ST';
+    }
+    
+    if (ts !== '') {
+        document.getElementById('ts').innerHTML = ts;
+    } else {
+        document.getElementById('ts').innerHTML = 'Time Saved';
+    }
+}
+
 function updateForm(event) {
     'use strict';
     
@@ -254,6 +293,53 @@ function updateForm(event) {
         calcTimeSaved();
         break;
     }
+    updateEq();
+}
+
+function clearForm() {
+    'use strict';
+    var form,
+        i;
+    
+    document.getElementById('tspt').classList.remove('selected');
+    document.getElementById('r').classList.remove('selected');
+    document.getElementById('st').classList.remove('selected');
+    document.getElementById('ts').classList.remove('selected');
+    
+    form = document.getElementById('calcForm').childNodes;
+
+    for (i = 0; i < form.length; i++) {
+        if (form[i].nodeType !== 3) {
+            form[i].classList.add('hidden');
+        }
+    }
+}
+
+function switchParam() {
+    'use strict';
+    
+    switch (event.target.parentElement.parentElement.id) {
+    case 'eqTimeSavedPer':
+        clearForm();
+        document.getElementById('timeSavedPerTaskContainer').classList.remove('hidden');
+        document.getElementById('tspt').classList.add('selected');
+        break;
+    case 'eqTaskReps':
+        clearForm();
+        document.getElementById('taskRepsContainer').classList.remove('hidden');
+        document.getElementById('r').classList.add('selected');
+        break;
+    case 'eqSetupTime':
+        clearForm();
+        document.getElementById('setupTimeContainer').classList.remove('hidden');
+        document.getElementById('st').classList.add('selected');
+        break;
+    case 'eqTimeSaved':
+        clearForm();
+        document.getElementById('timeSavedContainer').classList.remove('hidden');
+        document.getElementById('ts').classList.add('selected');
+        break;
+    }
 }
 
 document.addEventListener('keyup', updateForm);
@@ -264,3 +350,4 @@ document.getElementById('taskFrequencyUnits').addEventListener('input', calcTask
 document.getElementById('taskDurationUnits').addEventListener('input', calcTaskReps);
 document.getElementById('timeWAutomationUnits').addEventListener('input', calcTimeSavedPer);
 document.getElementById('timeWOAutomationUnits').addEventListener('input', calcTimeSavedPer);
+document.getElementById('eqContainer').addEventListener('click', switchParam);
