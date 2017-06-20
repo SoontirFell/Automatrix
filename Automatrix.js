@@ -234,39 +234,46 @@ function calcTimeSavedPer() {
 function updateEq() {
     'use strict';
     var st,
+        stVal,
         r,
+        rVal,
         ts,
-        tspt;
+        tsVal,
+        tspt,
+        tsptVal;
     
-    tspt = document.getElementById('timeSavedPer').value;
-    r = document.getElementById('taskReps').value;
-    st = document.getElementById('setupTime').value;
-    ts = document.getElementById('timeSaved').value;
+    tspt = document.getElementById('tspt');
+    r = document.getElementById('r');
+    st = document.getElementById('st');
+    ts = document.getElementById('ts');
     
-    console.log(r !== '');
+    tsptVal = document.getElementById('timeSavedPer').value;
+    rVal = document.getElementById('taskReps').value;
+    stVal = document.getElementById('setupTime').value;
+    tsVal = document.getElementById('timeSaved').value;
     
-    if (tspt !== '') {
-        document.getElementById('tspt').innerHTML = tspt;
+    if (tsptVal !== '') {
+        tspt.innerHTML = tsptVal;
     } else {
-        document.getElementById('tspt').innerHTML = 'TSpT';
+        tspt.innerHTML = 'TSpT';
     }
     
-    if (r !== '') {
-        document.getElementById('r').innerHTML = r;
+    if (rVal !== '') {
+        r.innerHTML = rVal;
     } else {
-        document.getElementById('r').innerHTML = 'R';
+        r.innerHTML = 'R';
     }
     
-    if (st !== '') {
-        document.getElementById('st').innerHTML = st;
+    if (stVal !== '') {
+        st.innerHTML = stVal;
     } else {
-        document.getElementById('st').innerHTML = 'ST';
+        st.innerHTML = 'ST';
     }
     
-    if (ts !== '') {
-        document.getElementById('ts').innerHTML = ts;
+    if (tsVal !== '') {
+        ts.innerHTML = tsVal;
     } else {
-        document.getElementById('ts').innerHTML = 'Time Saved';
+        ts.innerHTML = 'Time Saved';
     }
 }
 
@@ -318,7 +325,7 @@ function clearForm() {
 function switchParam() {
     'use strict';
     
-    switch (event.target.parentElement.parentElement.id) {
+    switch (event.target.parentElement.id) {
     case 'eqTimeSavedPer':
         clearForm();
         document.getElementById('timeSavedPerTaskContainer').classList.remove('hidden');
@@ -350,4 +357,4 @@ document.getElementById('taskFrequencyUnits').addEventListener('input', calcTask
 document.getElementById('taskDurationUnits').addEventListener('input', calcTaskReps);
 document.getElementById('timeWAutomationUnits').addEventListener('input', calcTimeSavedPer);
 document.getElementById('timeWOAutomationUnits').addEventListener('input', calcTimeSavedPer);
-document.getElementById('eqContainer').addEventListener('click', switchParam);
+document.getElementById('eqContainer').addEventListener('click', switchParam, true);
