@@ -1,18 +1,8 @@
-To Do:
-    Add Error Handling
-    Style
-        Convert to Wizard
-        Add power user mode that shows all
+event.target = element that was clicked
+event.currentTarget = element w/ event handler
 
-Contextual Fields:
-Time w/o Automation
-Time w/ Automation
-Estimate Margin of Error on time w/ Automation
-Time saved by Automation
-    Absolute and % diff
-Frequency task is executed
-Duration of task execution
-# of task repetitions
-# of repetitions to break even
-time to break even
-surplus time from automation
+1) Add padding to spans to increase hitbox
+2) Cap length of fields to three decimals
+3) Add hover and hand-pointer styling to equation
+4) Add keyboard navigation
+5) Style better
