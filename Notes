@@ -7,3 +7,16 @@ Cap length of fields to three decimals
 Add hover and hand-pointer styling to equation
 Add keyboard navigation
 Style better
+
+
+if (isNaN(breakEvenRepsMargin) === true || breakEvenRepsMargin <= 0) {
+        breakEvenRepsFinal = breakEvenRepsAvg;
+    } else {
+        breakEvenRepsFinal = breakEvenRepsAvg + ' (' + (breakEvenRepsAvg * (100 - breakEvenRepsMargin) / 100)  + ' - ' + (breakEvenRepsAvg * (100 + breakEvenRepsMargin) / 100)  + ')';
+    }
+ into
+ 
+ breakEvenRepsFinal = breakEvenRepsAvg;
+ if (isNaN(breakEvenRepsMargin) === false || breakEvenRepsMargin > 0) {
+        breakEvenRepsFinal +=  ' (' + (breakEvenRepsAvg * (100 - breakEvenRepsMargin) / 100)  + ' - ' + (breakEvenRepsAvg * (100 + breakEvenRepsMargin) / 100)  + ')';
+    }
