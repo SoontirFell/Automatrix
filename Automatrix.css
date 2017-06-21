@@ -36,26 +36,32 @@ input {
 
 .eqStyle span {
     font-style: italic;
+    padding: 5px;
 }
 
 .tsptStyle {
     color:dodgerblue;
+    cursor: pointer;
 }
 
 .rStyle {
     color:orange;
+    cursor: pointer;
 }
 
 .stStyle {
     color:rebeccapurple;
+    cursor: pointer;
 }
 
 .timeLostStyle {
     color:red;
+    cursor: pointer;
 }
 
 .timeSavedStyle {
     color:forestgreen;
+    cursor: pointer;
 }
 
 

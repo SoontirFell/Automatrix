@@ -37,6 +37,20 @@ function zeroMarginMultiple(zeroMargin, pairedMargin) {
     return zeroMargin;
 }
 
+//If a number has > 3 decimal places it is rounded to 3
+function roundTo3(num) {
+    'use strict';
+    var postDecimal;
+    
+    postDecimal = num.toString().split(".")[1];
+    
+    if (!!postDecimal && postDecimal.length > 3) {
+        return num.toFixed(3);
+    }
+    
+    return num;
+}
+
 function calcBreakEven(timeSavedPerSeconds, timeSavedPerMagin, taskReps, setupTimeSeconds, setupTimeMargin) {
     'use strict';
     var breakEvenRepsAvg,
@@ -73,8 +87,8 @@ function calcTimeSaved() {
         timeSavedConverted,
         timeSavedFinal;
     
-    timeSavedPerRaw = parseInt(document.getElementById('timeSavedPer').value, 10);
-    timeSavedPerMargin = parseInt(document.getElementById('timeSavedPerMargin').value, 10);
+    timeSavedPerRaw = document.getElementById('timeSavedPer').valueAsNumber;
+    timeSavedPerMargin = document.getElementById('timeSavedPerMargin').valueAsNumber;
     timeSavedPerUnits = document.getElementById('timeSavedPerUnits').value;
     
     if (timeSavedPerUnits === 'Seconds') {
@@ -83,11 +97,11 @@ function calcTimeSaved() {
         timeSavedPerSeconds = convertSeconds(timeSavedPerRaw, timeSavedPerUnits, true);
     }
     
-    taskReps = parseInt(document.getElementById('taskReps').value, 10);
-    taskRepsMargin = parseInt(document.getElementById('taskRepsMargin').value, 10);
+    taskReps = document.getElementById('taskReps').valueAsNumber;
+    taskRepsMargin = document.getElementById('taskRepsMargin').valueAsNumber;
     
-    setupTimeRaw = parseInt(document.getElementById('setupTime').value, 10);
-    setupTimeMargin = parseInt(document.getElementById('setupTimeMargin').value, 10);
+    setupTimeRaw = document.getElementById('setupTime').valueAsNumber;
+    setupTimeMargin = document.getElementById('setupTimeMargin').valueAsNumber;
     setupTimeUnits = document.getElementById('setupTimeUnits').value;
     
     setupTimeSeconds = setupTimeRaw;
@@ -117,9 +131,9 @@ function calcTimeSaved() {
     
     if (isNaN(timeSavedConverted) === false) {
         if (isNaN(timeSavedMargin) === true) {
-            timeSavedFinal = timeSavedConverted;
+            timeSavedFinal = roundTo3(timeSavedConverted);
         } else {
-            timeSavedFinal = timeSavedConverted + ' (' + (timeSavedConverted * (100 - timeSavedMargin) / 100)  + ' - ' + (timeSavedConverted * (100 + timeSavedMargin) / 100)  + ')';
+            timeSavedFinal = roundTo3(timeSavedConverted) + ' (' + roundTo3(timeSavedConverted * (100 - timeSavedMargin) / 100)  + ' - ' + roundTo3(timeSavedConverted * (100 + timeSavedMargin) / 100)  + ')';
         }
         document.getElementById('timeSaved').value = timeSavedFinal;
         
@@ -127,7 +141,6 @@ function calcTimeSaved() {
             calcBreakEven(timeSavedPerSeconds, timeSavedPerMargin, taskReps, setupTimeSeconds, setupTimeMargin);
         } else {
             document.getElementById('breakEvenReps').value = '';
-            document.getElementById('breakEvenTime').value = '';
             document.getElementById('surplusTime').value = '';
         }
     } else {
@@ -195,9 +208,9 @@ function calcTimeSavedPer() {
         timeWAutomationMargin,
         timeWAutomationUnits;
     
-    timeWOAutomationRaw = document.getElementById('timeWOAutomation').value;
+    timeWOAutomationRaw = document.getElementById('timeWOAutomation').valueAsNumber;
     timeWOAutomationUnits = document.getElementById('timeWOAutomationUnits').value;
-    timeWAutomationRaw = document.getElementById('timeWAutomation').value;
+    timeWAutomationRaw = document.getElementById('timeWAutomation').valueAsNumber;
     timeWAutomationUnits = document.getElementById('timeWAutomationUnits').value;
     timeSavedPerUnits = document.getElementById('timeSavedPerUnits').value;
     
@@ -206,7 +219,7 @@ function calcTimeSavedPer() {
         
         timeWAutomationSeconds = convertSeconds(timeWAutomationRaw, timeWAutomationUnits, true);
         
-        timeSavedPer = parseInt(timeWOAutomationSeconds, 10) - parseInt(timeWAutomationSeconds, 10);
+        timeSavedPer = timeWOAutomationSeconds - timeWAutomationSeconds;
         
         timeSavedPerConverted = convertSeconds(timeSavedPer, timeSavedPerUnits, false);
             
@@ -215,13 +228,13 @@ function calcTimeSavedPer() {
         document.getElementById('timeSavedPer').value = null;
     }
     
-    timeWOAutomationMargin = document.getElementById('timeWOAutomationMargin').value;
-    timeWAutomationMargin = document.getElementById('timeWAutomationMargin').value;
+    timeWOAutomationMargin = document.getElementById('timeWOAutomationMargin').valueAsNumber;
+    timeWAutomationMargin = document.getElementById('timeWAutomationMargin').valueAsNumber;
     
     if (!!timeWOAutomationMargin && !!timeWAutomationMargin) {
         console.log('test');
         
-        timeSavedPerMargin = parseInt(timeWOAutomationMargin, 10) + parseInt(timeWAutomationMargin, 10);
+        timeSavedPerMargin = timeWOAutomationMargin + timeWAutomationMargin;
         
         document.getElementById('timeSavedPerMargin').value = timeSavedPerMargin;
     } else {
@@ -233,48 +246,10 @@ function calcTimeSavedPer() {
 
 function updateEq() {
     'use strict';
-    var st,
-        stVal,
-        r,
-        rVal,
-        ts,
-        tsVal,
-        tspt,
-        tsptVal;
-    
-    tspt = document.getElementById('tspt');
-    r = document.getElementById('r');
-    st = document.getElementById('st');
-    ts = document.getElementById('ts');
-    
-    tsptVal = document.getElementById('timeSavedPer').value;
-    rVal = document.getElementById('taskReps').value;
-    stVal = document.getElementById('setupTime').value;
-    tsVal = document.getElementById('timeSaved').value;
-    
-    if (tsptVal !== '') {
-        tspt.innerHTML = tsptVal;
-    } else {
-        tspt.innerHTML = 'TSpT';
-    }
-    
-    if (rVal !== '') {
-        r.innerHTML = rVal;
-    } else {
-        r.innerHTML = 'R';
-    }
-    
-    if (stVal !== '') {
-        st.innerHTML = stVal;
-    } else {
-        st.innerHTML = 'ST';
-    }
-    
-    if (tsVal !== '') {
-        ts.innerHTML = tsVal;
-    } else {
-        ts.innerHTML = 'Time Saved';
-    }
+    document.getElementById('tspt').innerHTML = document.getElementById('timeSavedPer').value || 'TSpT';
+    document.getElementById('r').innerHTML = document.getElementById('taskReps').value || 'R';
+    document.getElementById('st').innerHTML = document.getElementById('setupTime').value || 'ST';
+    document.getElementById('ts').innerHTML = document.getElementById('timeSaved').value || 'Time Saved';
 }
 
 function updateForm(event) {
@@ -322,7 +297,7 @@ function clearForm() {
     }
 }
 
-function switchParam() {
+function switchParam(event) {
     'use strict';
     
     switch (event.target.parentElement.id) {

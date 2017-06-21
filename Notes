@@ -1,10 +1,6 @@
 event.target = element that was clicked
 event.currentTarget = element w/ event handler
 
-Add padding to spans to increase hitbox
-Add event Param to switch Param
-Cap length of fields to three decimals
-Add hover and hand-pointer styling to equation
 Add keyboard navigation
 Style better
 
