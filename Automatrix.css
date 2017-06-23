@@ -1,3 +1,4 @@
+/* Tags */
 h1 {
     margin-bottom: -20px;
 }
@@ -16,6 +17,7 @@ input {
     width:200px
 }
 
+/* Styles */
 .bodyStyle div{
     margin-bottom: -10px;
 }
@@ -37,6 +39,11 @@ input {
 .eqStyle span {
     font-style: italic;
     padding: 5px;
+}
+
+.eqStyle span:hover {
+    text-decoration: underline;
+    text-shadow: -.5px 0px black;
 }
 
 .tsptStyle {
@@ -64,17 +71,13 @@ input {
     cursor: pointer;
 }
 
-
 .footerStyle {
     font-size: 12px;
     width:256px;
 }
 
 
-.smallInput {
-    width:30px;
-}
-
+/* Utilities */
 .hidden {
     display:none;
 }
@@ -82,4 +85,8 @@ input {
 .selected {
     text-decoration: underline;
     text-shadow: -.5px 0px black;
+}
+
+.smallInput {
+    width:30px;
 }
