@@ -29,10 +29,14 @@
             </div>
             
             <div id="formContainer" class="formStyle">
-                <form id="calcForm" name="calcForm">
-                    
+                    <form id="formFilters" class="formFiltersStyle">
+                        <input id="subCalcToggle" name="subCalcToggle" type="checkbox">
+                        <label> Sub-Calculators</label>
+                    </form>
+                
+                    <form id="calcForm" name="calcForm">
                     <div id="timeSavedPerTaskContainer" class="">
-                        <h5 class="tsptStyle">Time Saved per Task</h5>
+                        <h4 class="tsptStyle">Time Saved per Task</h4>
                         <input id="timeSavedPer" type="number" name="savedPerTime">
                         <br />
                         <input id="timeSavedPerMargin" class="smallInput" maxlength="4" type="number" name="savedPerTimeMargin" min="0"> % |
@@ -45,7 +49,7 @@
                             <option>Years</option>
                         </select>
                         
-                        <div id="timeSavedPerCalculator"  class="hidden">
+                        <div id="timeSavedPerCalculator"  class="subCalculator hidden">
                             <div id="timeWOAutoContainer">
                                 <h5>Task Time w/o Auto</h5>
                                 <input id="timeWOAutomation" type="number" name="timeWOAutomation">
@@ -79,12 +83,12 @@
                     </div>
                     
                     <div id="taskRepsContainer" class="hidden">
-                        <h5 class="rStyle">Number of Repetitions</h5>
+                        <h4 class="rStyle">Number of Repetitions</h4>
                         <input id="taskReps" type="number" name="taskReps">
                         <br />
                         <input id="taskRepsMargin" class="smallInput" maxlength="4"  type="number" name="repetitionMargin"> %
                         
-                        <div id="tasRepsCalculator" class="hidden">
+                        <div id="tasRepsCalculator" class="subCalculator hidden">
                             <div id="taskFrequencyContainer">
                                 <h5>Task Frequency</h5>
                                 <input id="taskFrequency" type="number" name="taskFrequency">
@@ -118,7 +122,7 @@
                     </div>
                     
                     <div id="setupTimeContainer" class="hidden">
-                        <h5 class="stStyle">Setup Time</h5>
+                        <h4 class="stStyle">Setup Time</h4>
                         <input id="setupTime" type="number" name="setupTime">
                         <br />
                         <input id="setupTimeMargin" class="smallInput" maxlength="4" type="number" name="setupTimeMargin" min="0"> % |
@@ -133,7 +137,7 @@
                     </div>
                     
                     <div id="timeSavedContainer" class="hidden">
-                        <h5 class="timeSavedStyle">Time Saved</h5>
+                        <h4 class="timeSavedStyle">Time Saved</h4>
                         <input id="timeSaved" type="text" name="timeSaved" value="" disabled>
                         <br />
                         <input id="timeSavedMargin" class="smallInput" maxlength="4" type="number" name="timeSavedMargin" value="" disabled min="0"> % Error |
@@ -146,8 +150,8 @@
                             <option>Years</option>
                         </select>
                         
-                        <div id="breakEvenContainer" class="hidden">
-                            <h5>Break Even on Task</h5>
+                        <div id="breakEvenContainer" class="">
+                            <h4>Break Even on Task</h4>
                             <input id="breakEvenReps" type="text" name="breakEvenReps" disabled>
                         </div>
                     </div>       

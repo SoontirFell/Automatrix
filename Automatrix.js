@@ -1,4 +1,4 @@
-/*globals browser, console, SC, YT */
+/*globals browser, console */
 /*jslint plusplus: true */
 
 // Converts time values to and from Seconds. Can be used in the opposite direction if the value is per time, e.g. 1 task per hour
@@ -49,6 +49,28 @@ function roundTo3(num) {
     }
     
     return num;
+}
+
+function subCalcToggle() {
+    'use strict';
+    var i,
+        subCalcs,
+        subCalcsLen;
+    
+    subCalcs = document.getElementsByClassName('subCalculator');
+    subCalcsLen = subCalcs.length;
+    
+    if (document.getElementById('subCalcToggle').checked) {
+        for (i = 0; i < subCalcsLen; i++) {
+            subCalcs[i].classList.remove('hidden');
+        }
+    } else {
+        for (i = 0; i < subCalcsLen; i++) {
+            subCalcs[i].classList.add('hidden');
+        }
+    }
+    
+    
 }
 
 function calcBreakEven(timeSavedPerSeconds, timeSavedPerMagin, taskReps, setupTimeSeconds, setupTimeMargin) {
@@ -232,8 +254,6 @@ function calcTimeSavedPer() {
     timeWAutomationMargin = document.getElementById('timeWAutomationMargin').valueAsNumber;
     
     if (!!timeWOAutomationMargin && !!timeWAutomationMargin) {
-        console.log('test');
-        
         timeSavedPerMargin = timeWOAutomationMargin + timeWAutomationMargin;
         
         document.getElementById('timeSavedPerMargin').value = timeSavedPerMargin;
@@ -299,47 +319,126 @@ function switchParam(event, id) {
     }
 }
 
+//Ensures focus attempt isn't interrupted, particularly when used on a select list w/o moving through eq
+function focusTimeOut(focusTarget) {
+    'use strict';
+    
+    window.setTimeout(function () {
+        document.getElementById(focusTarget).focus();
+    }, 0);
+}
+
+//This is ugly and does not work for navigation from a select list to another element on the same page. How can it be cleaner?
 function enterNavigation(event) {
     'use strict';
     
-    switch (event.target.id) {
-    case 'timeSavedPer':
-        document.getElementById('timeSavedPerMargin').focus();
-        break;
-    case 'timeSavedPerMargin':
-        document.getElementById('timeSavedPerUnits').focus();
-        break;
-    case 'timeSavedPerUnits':
-        switchParam(null, 'eqTaskReps');
-        document.getElementById('taskReps').focus();
-        break;
-    case 'taskReps':
-        document.getElementById('taskRepsMargin').focus();
-        break;
-    case 'taskRepsMargin':
-        switchParam(null, 'eqSetupTime');
-        document.getElementById('setupTime').focus();
-        break;
-    case 'setupTime':
-        document.getElementById('setupTimeMargin').focus();
-        break;
-    case 'setupTimeMargin':
-        document.getElementById('setupTimeUnits').focus();
-        break;
-    case 'setupTimeUnits':
-        switchParam(null, 'eqTimeSaved');
-        document.getElementById('timeSavedUnits').focus();
-        break;
+    if (event.key !== 'Enter') {
+        return;
+    }
+    
+    if (document.getElementById('subCalcToggle').checked) {
+        switch (event.target.id) {
+        case 'timeSavedPer':
+            document.getElementById('timeSavedPerMargin').focus();
+            break;
+        case 'timeSavedPerMargin':
+            document.getElementById('timeSavedPerUnits').focus();
+            break;
+        case 'timeSavedPerUnits':
+            switchParam(null, 'eqTaskReps');
+            document.getElementById('taskReps').focus();
+            break;
+        case 'timeWOAutomation':
+            document.getElementById('timeWOAutomationMargin').focus();
+            break;
+        case 'timeWOAutomationMargin':
+            document.getElementById('timeWOAutomationUnits').focus();
+            break;
+        case 'timeWOAutomationUnits':
+            focusTimeOut('timeWAutomation');
+            break;
+        case 'timeWAutomation':
+            document.getElementById('timeWAutomationMargin').focus();
+            break;
+        case 'timeWAutomationMargin':
+            document.getElementById('timeWAutomationUnits').focus();
+            break;
+        case 'timeWAutomationUnits':
+            switchParam(null, 'eqTaskReps');
+            document.getElementById('taskReps').focus();
+            break;
+        case 'taskReps':
+            document.getElementById('taskRepsMargin').focus();
+            break;
+        case 'taskRepsMargin':
+            switchParam(null, 'eqSetupTime');
+            document.getElementById('setupTime').focus();
+            break;
+        case 'taskFrequency':
+            document.getElementById('taskFrequencyMargin').focus();
+            break;
+        case 'taskFrequencyMargin':
+            document.getElementById('taskFrequencyUnits').focus();
+            break;
+        case 'taskFrequencyUnits':
+            focusTimeOut('taskDuration');
+            break;
+        case 'taskDuration':
+            document.getElementById('taskDurationMargin').focus();
+            break;
+        case 'taskDurationMargin':
+            document.getElementById('taskDurationUnits').focus();
+            break;
+        case 'taskDurationUnits':
+            switchParam(null, 'eqSetupTime');
+            document.getElementById('setupTime').focus();
+            break;
+        case 'setupTime':
+            document.getElementById('setupTimeMargin').focus();
+            break;
+        case 'setupTimeMargin':
+            document.getElementById('setupTimeUnits').focus();
+            break;
+        case 'setupTimeUnits':
+            switchParam(null, 'eqTimeSaved');
+            document.getElementById('timeSavedUnits').focus();
+            break;
+        }
+    } else {
+        switch (event.target.id) {
+        case 'timeSavedPer':
+            document.getElementById('timeSavedPerMargin').focus();
+            break;
+        case 'timeSavedPerMargin':
+            document.getElementById('timeSavedPerUnits').focus();
+            break;
+        case 'timeSavedPerUnits':
+            switchParam(null, 'eqTaskReps');
+            document.getElementById('taskReps').focus();
+            break;
+        case 'taskReps':
+            document.getElementById('taskRepsMargin').focus();
+            break;
+        case 'taskRepsMargin':
+            switchParam(null, 'eqSetupTime');
+            document.getElementById('setupTime').focus();
+            break;
+        case 'setupTime':
+            document.getElementById('setupTimeMargin').focus();
+            break;
+        case 'setupTimeMargin':
+            document.getElementById('setupTimeUnits').focus();
+            break;
+        case 'setupTimeUnits':
+            switchParam(null, 'eqTimeSaved');
+            document.getElementById('timeSavedUnits').focus();
+            break;
+        }
     }
 }
 
 function updateForm(event) {
     'use strict';
-    
-    if (event.key === 'Enter') {
-        enterNavigation(event);
-        return;
-    }
     
     switch (event.target.id) {
 
@@ -347,6 +446,8 @@ function updateForm(event) {
     case 'timeWOAutomation':
     case 'timeWAutomationMargin':
     case 'timeWOAutomationMargin':
+    case 'timeWAutomationUnits':
+    case 'timeWOAutomationUnits':
         calcTimeSavedPer();
         break;
         
@@ -354,6 +455,8 @@ function updateForm(event) {
     case 'taskDuration':
     case 'taskFrequencyMargin':
     case 'taskDurationMargin':
+    case 'taskFrequencyUnits':
+    case 'taskDurationUnits':
         calcTaskReps();
         break;
 
@@ -364,13 +467,16 @@ function updateForm(event) {
     updateEq();
 }
 
+// Keyup is needed to keep equation up to date and for tab navigaton. Keypress is needed for enter navigation
+document.addEventListener('keypress', enterNavigation);
+document.addEventListener('keyup', updateForm);
 
-document.addEventListener('keypress', updateForm);
 document.getElementById('timeSavedUnits').addEventListener('select', updateForm);
 document.getElementById('timeSavedPerUnits').addEventListener('select', updateForm);
 document.getElementById('setupTimeUnits').addEventListener('select', updateForm);
-document.getElementById('taskFrequencyUnits').addEventListener('select', calcTaskReps);
-document.getElementById('taskDurationUnits').addEventListener('select', calcTaskReps);
-document.getElementById('timeWAutomationUnits').addEventListener('select', calcTimeSavedPer);
-document.getElementById('timeWOAutomationUnits').addEventListener('select', calcTimeSavedPer);
+document.getElementById('taskFrequencyUnits').addEventListener('select', updateForm);
+document.getElementById('taskDurationUnits').addEventListener('select', updateForm);
+document.getElementById('timeWAutomationUnits').addEventListener('select', updateForm);
+document.getElementById('timeWOAutomationUnits').addEventListener('select', updateForm, { passive: true });
 document.getElementById('eqContainer').addEventListener('click', switchParam);
+document.getElementById('subCalcToggle').addEventListener('click', subCalcToggle);

@@ -7,14 +7,26 @@ h3 {
     font-style: italic
 }
 
-h5 {
+h4 h5 {
     margin-bottom: 0px;
     text-align: center;
     width:200px;
 }
 
+label {
+    display: inline-block;
+    font-size: 14px;
+    left:150px;
+    position:relative;
+    width:95px;
+}
+
+div {
+    width:500px;
+}
+
 input {
-    width:200px
+    width:200px;
 }
 
 /* Styles */
@@ -28,6 +40,21 @@ input {
 
 .formStyle {
     margin-left: 28px;
+    width:272px;
+}
+
+.formFiltersStyle {
+    margin:-15px 0px -10px 0px;
+    width:272px;
+}
+
+.formFiltersStyle input{
+    display: inline-block;
+    left:150px;
+    margin:0px;
+    position:relative;
+    vertical-align: middle;
+    width:15px;
 }
 
 .eqStyle p{
