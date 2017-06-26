@@ -1,6 +1,6 @@
 event.target = element that was clicked
 event.currentTarget = element w/ event handler
 
-Enter navigation for sub-calcs - Why does units only work when it's the last field one presses enter upon
-Tab navigation from units
+Audit code for:
+  non-cached lengths in for loops
 Style
