@@ -275,7 +275,8 @@ function updateEq() {
 function clearForm() {
     'use strict';
     var form,
-        i;
+        i,
+        len;
     
     document.getElementById('tspt').classList.remove('selected');
     document.getElementById('r').classList.remove('selected');
@@ -283,8 +284,9 @@ function clearForm() {
     document.getElementById('ts').classList.remove('selected');
     
     form = document.getElementById('calcForm').childNodes;
+    len = form.length;
 
-    for (i = 0; i < form.length; i++) {
+    for (i = 0; i < len; i++) {
         if (form[i].nodeType !== 3) {
             form[i].classList.add('hidden');
         }
