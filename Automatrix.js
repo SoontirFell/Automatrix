@@ -472,13 +472,13 @@ function updateForm(event) {
 document.addEventListener('keypress', enterNavigation);
 document.addEventListener('keyup', updateForm);
 
-document.getElementById('timeSavedUnits').onchange = updateForm;
-document.getElementById('timeSavedPerUnits').onchange = updateForm;
-document.getElementById('setupTimeUnits').onchange = updateForm;
-document.getElementById('taskFrequencyUnits').onchange = updateForm;
-document.getElementById('taskDurationUnits').onchange = updateForm;
-document.getElementById('timeWAutomationUnits').onchange = updateForm;
-document.getElementById('timeWOAutomationUnits').onchange = updateForm;
+document.getElementById('timeSavedUnits').addEventListener('change', updateForm);
+document.getElementById('timeSavedPerUnits').addEventListener('change', updateForm)
+document.getElementById('setupTimeUnits').addEventListener('change', updateForm)
+document.getElementById('taskFrequencyUnits').addEventListener('change', updateForm)
+document.getElementById('taskDurationUnits').addEventListener('change', updateForm)
+document.getElementById('timeWAutomationUnits').addEventListener('change', updateForm)
+document.getElementById('timeWOAutomationUnits').addEventListener('change', updateForm)
 
 document.getElementById('eqContainer').addEventListener('click', switchParam);
 document.getElementById('subCalcToggle').addEventListener('click', subCalcToggle);
