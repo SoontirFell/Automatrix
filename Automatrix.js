@@ -1,7 +1,5 @@
-/*globals browser, console */
-/*jslint plusplus: true */
-
 // Converts time values to and from Seconds. Can be used in the opposite direction if the value is per time, e.g. 1 task per hour
+
 function convertSeconds(value, units, bToSeconds) {
     'use strict';
     var conversionMap = {
@@ -29,6 +27,7 @@ function convertSeconds(value, units, bToSeconds) {
 }
 
 // Ensures that a 0% margin of error does not result in a separate, non-zero margin of error being nullified.
+
 function zeroMarginMultiple(zeroMargin, pairedMargin) {
     'use strict';
     if (parseInt(zeroMargin, 10) === 0 && parseInt(pairedMargin, 10) !== 0) {
@@ -38,16 +37,17 @@ function zeroMarginMultiple(zeroMargin, pairedMargin) {
 }
 
 //If a number has > 3 decimal places it is rounded to 3
+
 function roundTo3(num) {
     'use strict';
     var postDecimal;
-    
+
     postDecimal = num.toString().split(".")[1];
-    
+
     if (!!postDecimal && postDecimal.length > 3) {
         return num.toFixed(3);
     }
-    
+
     return num;
 }
 
@@ -56,10 +56,10 @@ function subCalcToggle() {
     var i,
         subCalcs,
         subCalcsLen;
-    
+
     subCalcs = document.getElementsByClassName('subCalculator');
     subCalcsLen = subCalcs.length;
-    
+
     if (document.getElementById('subCalcToggle').checked) {
         for (i = 0; i < subCalcsLen; i++) {
             subCalcs[i].classList.remove('hidden');
@@ -69,8 +69,6 @@ function subCalcToggle() {
             subCalcs[i].classList.add('hidden');
         }
     }
-    
-    
 }
 
 function calcBreakEven(timeSavedPerSeconds, timeSavedPerMagin, taskReps, setupTimeSeconds, setupTimeMargin) {
@@ -78,16 +76,16 @@ function calcBreakEven(timeSavedPerSeconds, timeSavedPerMagin, taskReps, setupTi
     var breakEvenRepsAvg,
         breakEvenRepsMargin,
         breakEvenRepsFinal;
-    
+
     breakEvenRepsAvg = setupTimeSeconds / timeSavedPerSeconds;
     breakEvenRepsMargin = timeSavedPerMagin + setupTimeMargin;
-    
+
     if (isNaN(breakEvenRepsMargin) === true || breakEvenRepsMargin <= 0) {
         breakEvenRepsFinal = breakEvenRepsAvg;
     } else {
         breakEvenRepsFinal = breakEvenRepsAvg + ' (' + (breakEvenRepsAvg * (100 - breakEvenRepsMargin) / 100)  + ' - ' + (breakEvenRepsAvg * (100 + breakEvenRepsMargin) / 100)  + ')';
     }
-    
+
     document.getElementById('breakEvenReps').value = breakEvenRepsFinal;
 }
 
@@ -108,49 +106,49 @@ function calcTimeSaved() {
         timeSavedSeconds,
         timeSavedConverted,
         timeSavedFinal;
-    
+
     timeSavedPerRaw = document.getElementById('timeSavedPer').valueAsNumber;
     timeSavedPerMargin = document.getElementById('timeSavedPerMargin').valueAsNumber;
     timeSavedPerUnits = document.getElementById('timeSavedPerUnits').value;
-    
+
     if (timeSavedPerUnits === 'Seconds') {
         timeSavedPerSeconds = timeSavedPerRaw;
     } else {
         timeSavedPerSeconds = convertSeconds(timeSavedPerRaw, timeSavedPerUnits, true);
     }
-    
+
     taskReps = document.getElementById('taskReps').valueAsNumber;
     taskRepsMargin = document.getElementById('taskRepsMargin').valueAsNumber;
-    
+
     setupTimeRaw = document.getElementById('setupTime').valueAsNumber;
     setupTimeMargin = document.getElementById('setupTimeMargin').valueAsNumber;
     setupTimeUnits = document.getElementById('setupTimeUnits').value;
-    
+
     setupTimeSeconds = setupTimeRaw;
     if (setupTimeUnits !== 'Seconds') {
         setupTimeSeconds = convertSeconds(setupTimeSeconds, setupTimeUnits, true);
     }
-    
+
     timeSavedUnits = document.getElementById('timeSavedUnits').value;
     timeSavedSeconds = (timeSavedPerSeconds * taskReps) - setupTimeSeconds;
-    
+
     timeSavedConverted = timeSavedSeconds;
     if (timeSavedUnits !== 'Seconds') {
         timeSavedConverted = convertSeconds(timeSavedConverted, timeSavedUnits, false);
     }
-    
+
     timeSavedPerMargin = zeroMarginMultiple(timeSavedPerMargin, taskRepsMargin);
-    
+
     taskRepsMargin = zeroMarginMultiple(taskRepsMargin, timeSavedPerMargin);
-    
+
     timeSavedMargin = (timeSavedPerMargin * taskRepsMargin) + setupTimeMargin;
-    
+
     if (isNaN(timeSavedMargin) === false) {
         document.getElementById('timeSavedMargin').value = timeSavedMargin;
     } else {
         document.getElementById('timeSavedMargin').value = null;
     }
-    
+
     if (isNaN(timeSavedConverted) === false) {
         if (isNaN(timeSavedMargin) === true) {
             timeSavedFinal = roundTo3(timeSavedConverted);
@@ -158,7 +156,7 @@ function calcTimeSaved() {
             timeSavedFinal = roundTo3(timeSavedConverted) + ' (' + roundTo3(timeSavedConverted * (100 - timeSavedMargin) / 100)  + ' - ' + roundTo3(timeSavedConverted * (100 + timeSavedMargin) / 100)  + ')';
         }
         document.getElementById('timeSaved').value = timeSavedFinal;
-        
+
         if (timeSavedConverted >= 0) {
             calcBreakEven(timeSavedPerSeconds, timeSavedPerMargin, taskReps, setupTimeSeconds, setupTimeMargin);
         } else {
@@ -181,12 +179,12 @@ function calcTaskReps() {
         taskDurationConverted,
         taskDurationMargin,
         taskDurationUnits;
-    
+
     taskFrequencyRaw = document.getElementById('taskFrequency').value;
     taskFrequencyUnits = document.getElementById('taskFrequencyUnits').value;
     taskDurationRaw = document.getElementById('taskDuration').value;
     taskDurationUnits = document.getElementById('taskDurationUnits').value;
-    
+
     if (!!taskFrequencyRaw && !!taskDurationRaw) {
         taskFrequencyConverted = convertSeconds(taskFrequencyRaw, taskFrequencyUnits + 's', false);
         taskDurationConverted = convertSeconds(taskDurationRaw, taskDurationUnits, true);
@@ -195,22 +193,22 @@ function calcTaskReps() {
     } else {
         document.getElementById('taskReps').value = null;
     }
-    
+
     taskFrequencyMargin = document.getElementById('taskFrequencyMargin').value;
     taskDurationMargin = document.getElementById('taskDurationMargin').value;
-    
+
     if (!!taskFrequencyMargin && !!taskDurationMargin) {
-        
+
         taskFrequencyMargin = zeroMarginMultiple(taskFrequencyMargin, taskDurationMargin);
-        
+
         taskDurationMargin = zeroMarginMultiple(taskDurationMargin, taskFrequencyMargin);
-        
+
         taskRepsMargin = taskFrequencyMargin * taskDurationMargin;
         document.getElementById('taskRepsMargin').value = taskRepsMargin;
     } else {
         document.getElementById('taskRepsMargin').value = null;
     }
-    
+
     calcTimeSaved();
 }
 
@@ -228,38 +226,38 @@ function calcTimeSavedPer() {
         timeWAutomationSeconds,
         timeWAutomationMargin,
         timeWAutomationUnits;
-    
+
     timeWOAutomationRaw = document.getElementById('timeWOAutomation').valueAsNumber;
     timeWOAutomationUnits = document.getElementById('timeWOAutomationUnits').value;
     timeWAutomationRaw = document.getElementById('timeWAutomation').valueAsNumber;
     timeWAutomationUnits = document.getElementById('timeWAutomationUnits').value;
     timeSavedPerUnits = document.getElementById('timeSavedPerUnits').value;
-    
+
     if (!!timeWOAutomationRaw && !!timeWAutomationRaw) {
         timeWOAutomationSeconds = convertSeconds(timeWOAutomationRaw, timeWOAutomationUnits, true);
-        
+
         timeWAutomationSeconds = convertSeconds(timeWAutomationRaw, timeWAutomationUnits, true);
-        
+
         timeSavedPer = timeWOAutomationSeconds - timeWAutomationSeconds;
-        
+
         timeSavedPerConverted = convertSeconds(timeSavedPer, timeSavedPerUnits, false);
-            
+
         document.getElementById('timeSavedPer').value = timeSavedPerConverted;
     } else {
         document.getElementById('timeSavedPer').value = null;
     }
-    
+
     timeWOAutomationMargin = document.getElementById('timeWOAutomationMargin').valueAsNumber;
     timeWAutomationMargin = document.getElementById('timeWAutomationMargin').valueAsNumber;
-    
+
     if (!!timeWOAutomationMargin && !!timeWAutomationMargin) {
         timeSavedPerMargin = timeWOAutomationMargin + timeWAutomationMargin;
-        
+
         document.getElementById('timeSavedPerMargin').value = timeSavedPerMargin;
     } else {
         document.getElementById('timeSavedPerMargin').value = null;
     }
-    
+
     calcTimeSaved();
 }
 
@@ -276,12 +274,12 @@ function clearForm() {
     var form,
         i,
         len;
-    
+
     document.getElementById('tspt').classList.remove('selected');
     document.getElementById('r').classList.remove('selected');
     document.getElementById('st').classList.remove('selected');
     document.getElementById('ts').classList.remove('selected');
-    
+
     form = document.getElementById('calcForm').childNodes;
     len = form.length;
 
@@ -295,7 +293,7 @@ function clearForm() {
 function switchParam(event, id) {
     'use strict';
     var switcher = id || event.target.parentElement.id;
-    
+
     switch (switcher) {
     case 'eqTimeSavedPer':
         clearForm();
@@ -321,22 +319,24 @@ function switchParam(event, id) {
 }
 
 //Ensures focus attempt isn't interrupted, particularly when used on a select list w/o moving through eq
+
 function focusTimeOut(focusTarget) {
     'use strict';
-    
+
     window.setTimeout(function () {
         document.getElementById(focusTarget).focus();
     }, 0);
 }
 
 //This is ugly and does not work for navigation from a select list to another element on the same page. How can it be cleaner?
+
 function enterNavigation(event) {
     'use strict';
-    
+
     if (event.key !== 'Enter') {
         return;
     }
-    
+
     if (document.getElementById('subCalcToggle').checked) {
         switch (event.target.id) {
         case 'timeSavedPer':
@@ -440,7 +440,6 @@ function enterNavigation(event) {
 
 function updateForm(event) {
     'use strict';
-    console.log('triggered');
     switch (event.target.id) {
 
     case 'timeWAutomation':
@@ -451,7 +450,7 @@ function updateForm(event) {
     case 'timeWOAutomationUnits':
         calcTimeSavedPer();
         break;
-        
+
     case 'taskFrequency':
     case 'taskDuration':
     case 'taskFrequencyMargin':
@@ -469,8 +468,10 @@ function updateForm(event) {
 }
 
 // Keyup is needed to keep equation up to date and for tab navigaton. Keypress is needed for enter navigation
+
 document.addEventListener('keypress', enterNavigation);
 document.addEventListener('keyup', updateForm);
+document.addEventListener('click', updateForm);
 
 document.getElementById('timeSavedUnits').addEventListener('change', updateForm);
 document.getElementById('timeSavedPerUnits').addEventListener('change', updateForm)
